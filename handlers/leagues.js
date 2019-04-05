@@ -35,6 +35,18 @@ Dota2.Dota2Client.prototype.requestTopLeagueMatches = function() {
 
 };
 
+Dota2.Dota2Client.prototype.requestLeagueInfoListAdmins = function(callback) {
+    /* Sends a message to the Game Coordinator request the info on all available administrated leagues */
+    callback = callback || null;
+    this.Logger.debug("Sending CMsgDOTALeagueInfoListAdminsRequest");
+    
+    var payload = {};
+    this.sendToGC(  Dota2.schema.lookupEnum("EDOTAGCMsg").values.k_EMsgDOTALeagueInfoListAdminsRequest, 
+                    Dota2.schema.lookupType("CMsgDOTALeagueInfoListAdminsRequest").encode(payload).finish(),
+                    onLeagueInfoListAdminsReponse, callback);
+
+};
+
 // Events
 /**
  * Emitted when the GC sends a `CMsgDOTALiveLeagueGameUpdate`.
@@ -104,3 +116,14 @@ var onTopLeagueMatchesResponse = function onTopLeagueMatchesResponse(message) {
 
 };
 handlers[Dota2.schema.lookupEnum("EDOTAGCMsg").values.k_EMsgGCToClientTopLeagueMatchesResponse] = onTopLeagueMatchesResponse;
+
+var onLeagueInfoListAdminsReponse = function onLeagueInfoListAdminsReponse(message, callback) {
+    callback = callback || null;
+    var response = Dota2.schema.lookupType("CMsgDOTALeagueInfoList").decode(message);
+
+    if (this.debugMore) this.Logger.debug("League infos: " + util.inspect(response.infos) + ".");
+    this.emit("leagueInfoList", response.infos);
+    if (callback) callback(null, response.infos);
+
+};
+handlers[Dota2.schema.lookupEnum("EDOTAGCMsg").values.k_EMsgDOTALeagueInfoListAdminsReponse] = onLeagueInfoListAdminsReponse;
