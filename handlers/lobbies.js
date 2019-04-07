@@ -683,3 +683,11 @@ var onInviteCreated = function onInviteCreated(message) {
 }
 handlers[Dota2.schema.lookupEnum("EGCBaseMsg").values.k_EMsgGCInvitationCreated] = onInviteCreated;
 
+var onMatchSignedOut = function onMatchSignedOut(message) {
+    var matchSignedOut = Dota2.schema.lookupType("CMsgGCToClientMatchSignedOut").decode(message);
+
+    if (this.debug) this.Logger.debug("Signed out of match id " + matchSignedOut.match_id);
+    this.emit("matchSignedOut", matchSignedOut.match_id);
+}
+handlers[Dota2.schema.lookupEnum("EDOTAGCMsg").values.k_EMsgGCToClientMatchSignedOut] = onMatchSignedOut;
+
