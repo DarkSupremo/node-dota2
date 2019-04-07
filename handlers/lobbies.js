@@ -27,6 +27,7 @@ Dota2._lobbyOptions = {
     custom_difficulty: "number",
     custom_game_id: "number",
     pause_setting: "number",
+    visibility: "number",
 };
 
 /**
@@ -124,7 +125,8 @@ Dota2.Dota2Client.prototype.createPracticeLobby = function(options, callback) {
         custom_game_mode: "",
         custom_map_name: "",
         custom_difficulty: 0,
-        custom_game_id: 0
+        custom_game_id: 0,
+        visibility: 0
     };
     var finalOptions = Object.assign(defaults, options);
 
