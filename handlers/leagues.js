@@ -80,7 +80,7 @@ var onLeagueInfoListAdminsReponse = function onLeagueInfoListAdminsReponse(messa
     callback = callback || null;
     var response = Dota2.schema.CMsgDOTALeagueInfoList.decode(message);
 
-    this.Logger.debug("League infos: " + util.inspect(response.infos) + ".");
+    this.Logger.debug("League infos: " + response.infos + ".");
     this.emit("leagueInfoList", response.infos);
     if (callback) callback(null, response.infos);
 

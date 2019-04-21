@@ -6,7 +6,7 @@
     "long": "^4.0.0",
     "merge": "^1.2.1",
     "steam": "^1.4.1",
-    "steam-resources": "github:seishun/node-steam-resources",
+    "steam-resources": "github:devilesk/node-steam-resources#dota-ihl-bot",
     "winston": "^3.2.1"
   },
   "devDependencies": {
