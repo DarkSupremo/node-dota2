@@ -22,10 +22,11 @@ Dota2.Dota2Client.prototype.requestLeagueInfoListAdmins = function(callback) {
     callback = callback || null;
     this.Logger.debug("Sending CMsgDOTALeagueInfoListAdminsRequest");
     
-    var payload = {};
-    this.sendToGC(  Dota2.schema.lookupEnum("EDOTAGCMsg").values.k_EMsgDOTALeagueInfoListAdminsRequest, 
-                    Dota2.schema.lookupType("CMsgDOTALeagueInfoListAdminsRequest").encode(payload).finish(),
-                    onLeagueInfoListAdminsReponse, callback);
+    var payload = new Dota2.schema.CMsgDOTALeagueInfoListAdminsRequest({});
+    this.sendToGC(Dota2.schema.EDOTAGCMsg.k_EMsgDOTALeagueInfoListAdminsRequest, 
+                    payload, 
+                    onLeagueInfoListAdminsReponse, 
+                    callback);
 
 };
 
